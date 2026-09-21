@@ -1,36 +1,30 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import { Geist, Oswald } from 'next/font/google'
+import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 
+const geist = Geist({
+  subsets: ['latin'],
+  variable: '--font-geist',
+})
+
+const oswald = Oswald({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-oswald',
+})
+
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Navalha & Cia — Barbearia',
+  description:
+    'Agende seu horário na Navalha & Cia. Cortes, barba e cuidados masculinos com atendimento premium.',
   generator: 'v0.app',
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+  colorScheme: 'dark',
+  themeColor: '#26241f',
 }
 
 export default function RootLayout({
@@ -39,9 +33,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased">
+    <html lang="pt-BR" className={`dark bg-background ${geist.variable} ${oswald.variable}`}>
+      <body className="font-sans antialiased">
         {children}
+        <Toaster position="top-center" />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
